@@ -25,7 +25,7 @@ function App() {
       setIsLoading(true);
       try {
           const response = await fetch(
-              "http://18.116.231.201:8080/api/affordability/estimate",
+              `${import.meta.env.EC2_API_URL}/api/affordability/estimate`,
               {
                   method: "POST",
                   headers: {
