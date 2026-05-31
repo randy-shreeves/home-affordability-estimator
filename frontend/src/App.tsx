@@ -25,7 +25,7 @@ function App() {
       setIsLoading(true);
       try {
           const response = await fetch(
-              "http://localhost:8080/api/affordability/estimate",
+              "http://18.116.231.201:8080/api/affordability/estimate",
               {
                   method: "POST",
                   headers: {

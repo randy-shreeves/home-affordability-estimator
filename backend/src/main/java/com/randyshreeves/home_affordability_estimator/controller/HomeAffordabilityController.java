@@ -8,7 +8,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/affordability")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://home-affordability-estimator.vercel.app"
+})
 public class HomeAffordabilityController {
 
     private final HomeAffordabilityService homeAffordabilityService;
