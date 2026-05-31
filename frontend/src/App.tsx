@@ -25,7 +25,7 @@ function App() {
       setIsLoading(true);
       try {
           const response = await fetch(
-              `${import.meta.env.EC2_API_URL}/api/affordability/estimate`,
+              `${import.meta.env.VITE_API_URL}/api/affordability/estimate`,
               {
                   method: "POST",
                   headers: {
