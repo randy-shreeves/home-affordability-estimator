@@ -19,14 +19,22 @@ Live link: https://home-affordability-estimator.vercel.app/
 * Spring Boot
 * Maven
 * JUnit
+* Dockerized
 * Deployed on AWS EC2 (Ubuntu)
+
+## Infrastructure
+- Docker (containerized backend deployment)
+- Nginx (reverse proxy)
+- HTTPS via Let's Encrypt (Certbot)
+- DuckDNS (domain + DNS)
+- AWS EC2 security groups
 
 ## Architecture
 
-* React frontend hosted on Vercel sends fetch request to DuckDNS domain
+* React frontend hosted on Vercel sends requests to DuckDNS domain
 * DuckDNS domain maps to AWS EC2 instance public IP
 * Nginx runs on EC2 instance and handles HTTPS termination using Let's Encrypt certificate
-* Nginx forwards requests internally to Spring Boot app on port 8080
+* Nginx forwards requests internally to the backend container running on port 8080
 
 ## Features
 
@@ -36,6 +44,7 @@ Live link: https://home-affordability-estimator.vercel.app/
 * Backend request validation
 * Unit tested with JUnit
 * Deployed frontend & backend
+* Containerized backend using Docker
 
 ## Running Locally
 
