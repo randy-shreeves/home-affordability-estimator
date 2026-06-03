@@ -4,6 +4,10 @@ A full-stack web application that estimates the maximum home price a buyer can a
 
 Live link: https://home-affordability-estimator.vercel.app/
 
+## Screenshot
+
+![screenshot](screenshots/result.png)
+
 ## Tech Stack
 
 ### Frontend

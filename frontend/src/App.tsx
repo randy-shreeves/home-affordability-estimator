@@ -78,7 +78,7 @@ function App() {
             }
             const numericValue = Number(field);
             if (isNaN(numericValue)) {
-                return "All fields must be numeric.";
+                return "All fields must be numeric only (no commas or other special characters).";
             }
             if (numericValue < 0) {
                 return "Values cannot be negative.";
