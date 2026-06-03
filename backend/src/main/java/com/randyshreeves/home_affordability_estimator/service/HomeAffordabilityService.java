@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class HomeAffordabilityService {
 
     public HomeAffordabilityResponse calculateAffordability(HomeAffordabilityRequest request) {
-        double monthlyPayment = request.getMonthlyPayment();
+        double desiredMonthlyPayment = request.getMonthlyPayment();
         double downPayment = request.getDownPayment();
         double monthlyInterestRate = request.getInterestRate() / 100 / 12;
         int loanTermMonths = request.getLoanTermYears() * 12;
@@ -34,7 +34,7 @@ public class HomeAffordabilityService {
         double homeownersInsuranceRate = request.getHomeownersInsuranceRate() / 100 / 12;
         double pmiRate = request.getPmiRate() / 100; // conversion to monthly rate happens later
         double maxHomePrice = calculateMaxHomePrice(
-                monthlyPayment,
+                desiredMonthlyPayment,
                 downPayment,
                 monthlyInterestRate,
                 loanTermMonths,
@@ -48,7 +48,7 @@ public class HomeAffordabilityService {
     }
 
     private double calculateMaxHomePrice(
-            double monthlyPayment,
+            double desiredMonthlyPayment,
             double downPayment,
             double monthlyInterestRate,
             int loanTermMonths,
@@ -58,10 +58,10 @@ public class HomeAffordabilityService {
             double pmiRate
     ) {
         // handle invalid mortgage configurations
-        if (monthlyPayment < 0 || loanTermMonths <= 0) {
+        if (desiredMonthlyPayment < 0 || loanTermMonths <= 0) {
             return 0;
         }
-        double availableMonthlyBudget = monthlyPayment - hoaMonthlyFees;
+        double availableMonthlyBudget = desiredMonthlyPayment - hoaMonthlyFees;
         // handle HOA being greater than desired monthly payment
         if (availableMonthlyBudget <= 0) {
             return 0;
@@ -75,7 +75,7 @@ public class HomeAffordabilityService {
         } else {
             maxHomePrice = (availableMonthlyBudget * denominator) / numerator;
         }
-        maxHomePrice = maxHomePrice + downPayment;
+        maxHomePrice += downPayment;
         double adjustedHomePrice = adjustForAdditionalHousingCosts(
                 availableMonthlyBudget,
                 maxHomePrice,
@@ -90,7 +90,7 @@ public class HomeAffordabilityService {
     }
 
     private double adjustForAdditionalHousingCosts(
-            double monthlyPayment,
+            double desiredMonthlyPayment,
             double maxHomePrice,
             double downPayment,
             double propertyTaxRate,
@@ -114,7 +114,7 @@ public class HomeAffordabilityService {
                     monthlyTaxPayment +
                     monthlyInsurancePayment +
                     monthlyPmiPayment;
-            if (totalMonthlyCost <= monthlyPayment) {
+            if (totalMonthlyCost <= desiredMonthlyPayment) {
                 return maxHomePrice;
             }
             maxHomePrice--;
